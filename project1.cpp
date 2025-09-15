@@ -1,5 +1,7 @@
+string sentences[];
 
 class Text2Compress {
+    private:
     protected:
         int _seq[200000]; // stores the current sequence
         int _length; // length of sequence
@@ -9,7 +11,11 @@ class Text2Compress {
         int _maxSymbol; // highest assigned symbol ID
     public:
         Text2Compress();
-        void initialize(int k, int lines); // read input text
+        void initialize(int k, int lines) { // read input text
+            for(int i = 0; i < k; i++) { //TODO: Write iteration function (just outside loop)
+                for(char c : )
+            }
+        }
         void train(int k); // perform k merges
         void encode(); // apply learned merges
         void decode(); // optional: expand compressed form
@@ -26,6 +32,7 @@ int main() {
     cin >> k >> numLines;
     cin.ignore(); // skip newline
     // Step 1: Read lines of input text
+    
     // Store each character’s ASCII code (0–127) into the sequence array
     // Step 2: Create a Text2Compress object
     Text2Compress compressor;
