@@ -12,30 +12,30 @@ class Text2Compress {
     public:
         Text2Compress();
         void initialize(int k, int lines) { // read input text
-            for(int i = 0; i < k; i++) { //TODO: Write iteration function (just outside loop)
-                for(char c : )
-            }
+            
         }
         void train(int k); // perform k merges
         void encode(); // apply learned merges
         void decode(); // optional: expand compressed form
         void displaySequence(); // print current sequence
-        void displayRules(); // print learned rules
+        void displayRules() { // print learned rules
+            cout << "a b -> z" << endl; //TODO: Write this method.
+        }
 };
 
 #include <iostream>
 #include <string>
 using namespace std;
 int main() {
-    int k, numLines;
+    int k, numLines; 
     // First row: k and number of lines of input
     cin >> k >> numLines;
     cin.ignore(); // skip newline
     // Step 1: Read lines of input text
-    
     // Store each character’s ASCII code (0–127) into the sequence array
     // Step 2: Create a Text2Compress object
     Text2Compress compressor;
+    compressor.initialize(1, 2);
     // Step 3: Train with k merges
     compressor.train(k);
     // Step 4: Display the learned rules
