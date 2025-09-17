@@ -40,14 +40,14 @@ class Text2Compress {
                     _freq[first][second]++;
                 }
             }
-            // Debugging. Delete this loop.
-            for(int i = 0; i < 127; ++i) {
-                for(int j = 0; j < 127; ++j) {
-                    if(_freq[i][j] > 0) {
-                        cout << _freq[i][j] << endl;
-                    }
-                }
-            }
+            // // Debugging. Delete this loop.
+            // for(int i = 0; i < 127; ++i) {
+            //     for(int j = 0; j < 127; ++j) {
+            //         if(_freq[i][j] > 0) {
+            //             cout << _freq[i][j] << endl;
+            //         }
+            //     }
+            // }
             return;
         }
         void train(int k) { // perform k merges
@@ -73,9 +73,26 @@ class Text2Compress {
                 _rules[_ruleCount][1] = secondBest;
                 _rules[_ruleCount][2] = newSym;
                 _ruleCount++;
-            }  
+
+                int write = 0;
+                for (int read = 0; read < _length; ++read) {
+                    if (read + 1 < _length
+                        && _seq[read]   == firstBest
+                        && _seq[read+1] == secondBest)
+                {
+                    _seq[write++] = newSym;
+                    read++;   // skip the second value in pair
+                } else {
+                _seq[write] = _seq[read];
+                write++;
+                }
+                _length = write;
+            }
+        }  
         }
-        void encode(); // apply learned merges
+        void encode() { // apply learned merges
+            
+        }
         void decode(); // optional: expand compressed form
         void displaySequence() { // print current sequence
             cout << "[";
@@ -85,7 +102,9 @@ class Text2Compress {
             cout << "]";
         }
         void displayRules() { // print learned rules
-            cout << "a b -> z" << endl; //TODO: Write this method.
+            for (int i = 0; i < _ruleCount; ++i) {
+                cout << _rules[i][0] << ' ' << _rules[i][1] << ' -> ' << _rules[i][2] << '\n';
+            }
         }
 };
 
@@ -104,7 +123,10 @@ int main() {
     // Step 4: Display the learned rules
     // TODO: compressor.displayRules();
     // Step 5: Display the compressed sequence
-    // TODO: compressor.displaySequence();
+    compressor.displaySequence();
+    compressor.train(2);
+    cout << "After 2 compressions" << endl; // Debugging line.
+    compressor.displaySequence();
     // Step 6: Process decompression lines (triplets + sequence)
     // You will write code to handle that part
     return 0;
