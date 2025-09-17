@@ -51,17 +51,29 @@ class Text2Compress {
             return;
         }
         void train(int k) { // perform k merges
-            int maxLim = _maxSymbol + 1;
-            int best = 0, firstBest = 0, secondBest = 0;
-            for (int first = 0; first < maxLim; ++first) {
-                for (int second = 0; second < maxLim; ++second) {
-                    if (_freq[first][second] > best) {
-                        best = _freq[first][second];
-                        firstBest = first;
-                        secondBest = second;
+            
+            for(int mergeCount = 0; mergeCount < k; ++mergeCount) {
+                // Finds the greatest frequency of a pair.
+                int maxLim = _maxSymbol + 1;
+                int best = 0, firstBest = 0, secondBest = 0;
+                for (int first = 0; first < maxLim; ++first) {
+                    for (int second = 0; second < maxLim; ++second) {
+                        if (_freq[first][second] > best) {
+                            best = _freq[first][second];
+                            firstBest = first;
+                            secondBest = second;
+                        }
                     }
                 }
-            }
+
+                // If there are no more "best" pairs. We can't train it anymore!
+                if(best == 0) break;
+                int newSym = ++_maxSymbol;
+                _rules[_ruleCount][0] = firstBest;
+                _rules[_ruleCount][1] = secondBest;
+                _rules[_ruleCount][2] = newSym;
+                _ruleCount++;
+            }  
         }
         void encode(); // apply learned merges
         void decode(); // optional: expand compressed form
