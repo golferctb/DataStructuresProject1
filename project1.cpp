@@ -47,7 +47,7 @@ class Text2Compress {
             // Ex. Through outer loop, increment through each rule, using i, j, etc. Through the inner loop, perform the merges (see documentation from TA).
             // Use the encode 
             numOfMerges = k;
-            
+
 
 
 
@@ -124,9 +124,7 @@ class Text2Compress {
                 cout << _rules[i][0] << ' ' << _rules[i][1] << ' ' << _rules[i][2] << '\n';
             }
         }
-        ~Text2Compress() {
-            cout << "Object deleted!" << endl; // Object deleted
-        }
+        ~Text2Compress() {}
 };
 
 int main() {
@@ -141,7 +139,7 @@ int main() {
     // Step 1: Read lines of input text
     // Store each character127) into the sequence array
     compressor.initialize(k, numLines);
-    compressor.displaySequence();
+    compressor.displaySequence(); // Debugging line
     // Step 3: Train with k merges
     compressor.train(k);
     // Step 4: Display the learned rules
